@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pokédex Arcobaleno — Completo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1: #ff9a9e;
+      --bg2: #fad0c4;
+      --glass: rgba(255,255,255,0.6);
+      --glass-strong: rgba(255,255,255,0.8);
+      --accent: #6C5CE7;
+      --muted: #666;
+      --card-radius: 14px;
+      --shadow: 0 8px 24px rgba(16,24,40,0.12);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;
+      background: linear-gradient(135deg,var(--bg1),var(--bg2));
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      color:#111;
+      padding-bottom:40px;
+    }
+
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+      padding:18px 24px;
+      backdrop-filter: blur(6px) saturate(120%);
+      background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.6));
+      box-shadow: var(--shadow);
+      border-bottom-left-radius: 16px;
+      border-bottom-right-radius: 16px;
+      position:sticky; top:0; z-index:30;
+      margin: 12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+    }
+    .brand h1{margin:0; font-size:1.2rem}
+    .controls{display:flex; gap:10px; align-items:center}
+
+    /* Search and filters */
+    .searchbar{
+      display:flex; gap:8px; align-items:center; background:var(--glass); padding:8px; border-radius:999px; box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    .searchbar input{border:0; outline:0; padding:8px; background:transparent; width:220px}
+    .searchbar button{border:0; background:transparent; cursor:pointer; font-weight:600}
+
+    .main{
+      max-width:1100px; margin:20px auto; padding:18px;
+    }
+
+    .toolbar{display:flex; gap:12px; align-items:center; margin-bottom:12px; flex-wrap:wrap}
+    .btn{padding:8px 12px; border-radius:10px; border:0; cursor:pointer; background:var(--glass-strong); box-shadow: 0 6px 18px rgba(0,0,0,0.06); font-weight:600}
+    .btn.ghost{background:transparent; border:1px solid rgba(0,0,0,0.06)}
+
+    #pokedex{display:grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap:16px}
+    .card{
+      background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7));
+      border-radius: var(--card-radius);
+      padding:14px; text-align:center; box-shadow: var(--shadow); position:relative; overflow:hidden;
+      transition:transform .16s ease, box-shadow .16s ease;
+    }
+    .card:hover{transform:translateY(-6px)}
+    .card img{width:120px; height:120px; object-fit:contain}
+    .card h3{margin:8px 0 6px 0}
+    .card p{font-size:0.9rem; color:var(--muted); min-height:42px}
+    .card .row{display:flex; gap:6px; justify-content:center; flex-wrap:wrap; margin-top:8px}
+    .small{padding:6px 8px; font-size:0.9rem; border-radius:8px; border:0}
+
+    #adminToggle{position:fixed; right:16px; bottom:16px; z-index:40}
+
+    .modal{
+      position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(2,6,23,0.45); z-index:50; display:none;
+    }
+    .modal .panel{background:white; border-radius:12px; padding:16px; width:360px; box-shadow: 0 18px 50px rgba(2,6,23,0.45)}
+    .modal .panel h2{margin:0 0 12px 0}
+    .modal.show{display:flex}
+
+    @media (max-width:600px){
+      .searchbar input{width:120px}
+      header{flex-direction:column; align-items:flex-start; gap:8px}
+    }
+
+    .fav{position:absolute; left:12px; top:12px; background:rgba(255,255,255,0.9); padding:6px 8px; border-radius:999px; box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+    input[type=file]{display:none}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Pok%C3%A9_Ball_icon.svg" alt="logo" width="36" height="36" style="filter:drop-shadow(0 6px 12px rgba(0,0,0,0.12))">
+      <div>
+        <h1>Dandy pokedex fansite</h1>
+        <div style="font-size:0.85rem; color:var(--muted)">Colleziona, ascolta e personalizza i tuoi Pokémon</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="searchbar">
+        <input id="searchInput" placeholder="Cerca per nome o mossa..." aria-label="Cerca">
+        <button id="clearSearch" title="Pulisci">✖</button>
+      </div>
+      <div>
+        <select id="filterColor" class="btn ghost" aria-label="Filtro colore">
+          <option value="">Tutti i colori</option>
+          <option value="red">Rosso</option>
+          <option value="blue">Blu</option>
+          <option value="green">Verde</option>
+          <option value="yellow">Giallo</option>
+          <option value="purple">Viola</option>
+        </select>
+      </div>
+      <button id="exportBtn" class="btn">Esporta .json</button>
+      <label class="btn" for="importFile">Importa .json</label>
+      <input type="file" id="importFile" accept="application/json">
+      <button id="adminToggle" class="btn">Admin</button>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="toolbar">
+      <div style="color:var(--muted)">Risultati: <strong id="count">0</strong></div>
+      <button id="resetFilters" class="btn ghost">Reset Filtri</button>
+      <button id="toggleCaptured" class="btn ghost" style="display:none">Mostra Solo Catturati</button>
+    </div>
+
+    <section id="pokedex" aria-live="polite"></section>
+  </main>
+
+  <!-- ADMIN MODAL -->
+  <div id="adminModal" class="modal" role="dialog" aria-modal="true">
+    <div class="panel">
+      <h2>Accesso Admin</h2>
+      <div style="display:flex; gap:8px; flex-direction:column">
+        <input id="adminPass" type="password" placeholder="Password" />
+        <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:8px">
+          <button id="loginBtn" class="btn">Login</button>
+          <button id="closeModal" class="btn ghost">Annulla</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN PANEL (in-page) -->
+  <div id="adminPanel" style="position:fixed; right:16px; top:80px; width:320px; z-index:45; display:none">
+    <div style="background:linear-gradient(180deg,rgba(255,255,255,0.95),rgba(255,255,255,0.85)); border-radius:12px; padding:12px; box-shadow:var(--shadow)">
+      <h3 style="margin:0 0 8px 0">Pannello Admin</h3>
+      <div style="display:flex; flex-direction:column; gap:8px">
+        <input id="a_name" placeholder="Nome Pokémon">
+        <input id="a_img" placeholder="URL immagine">
+        <input id="a_shiny" placeholder="URL immagine Shiny (opz.)">
+        <input id="a_desc" placeholder="Descrizione">
+        <input id="a_moves" placeholder="Mosse separate da ,">
+        <input id="a_audio" placeholder="URL audio (opz.)">
+        <input id="a_color" placeholder="Colore/gradient CSS (opz.)">
+        <div style="display:flex; gap:8px">
+          <button id="addPokemon" class="btn">Aggiungi / Salva</button>
+          <button id="logoutBtn" class="btn ghost">Logout</button>
+        </div>
+        <div style="display:flex; gap:8px; margin-top:6px">
+          <button id="clearDeleted" class="btn ghost">Ripristina elementi eliminati</button>
+          <button id="showDeletedList" class="btn ghost">Mostra eliminati</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <template id="cardTpl">
+    <div class="card">
+      <div class="fav" aria-hidden="true" style="display:none">⭐</div>
+      <img src="" alt="">
+      <h3></h3>
+      <p></p>
+      <div class="row"></div>
+    </div>
+  </template>
+
+  <script>
+  // ---------------- CONFIG ----------------
+  const ADMIN_PASSWORD = 'Pokesofy-2012'; // password admin come richiesto
+  const STORAGE_KEY = 'myPokedex_v2';
+  const DELETED_KEY = 'deletedPokemon_v2';
+
+  // ---------------- STATE ----------------
+  let storedData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+  let deletedNames = JSON.parse(localStorage.getItem(DELETED_KEY)) || []; // array di nomi cancellati permanentemente
+  let allData = []; // dati caricati da pokedex.json (base)
+  let isAdmin = sessionStorage.getItem('isAdmin') === 'true';
+
+  // ---------------- DOM ----------------
+  const pokedexEl = document.getElementById('pokedex');
+  const countEl = document.getElementById('count');
+  const adminModal = document.getElementById('adminModal');
+  const adminPanel = document.getElementById('adminPanel');
+  const searchInput = document.getElementById('searchInput');
+  const filterColor = document.getElementById('filterColor');
+  const exportBtn = document.getElementById('exportBtn');
+  const importFile = document.getElementById('importFile');
+  const toggleCaptured = document.getElementById('toggleCaptured');
+  const clearSearchBtn = document.getElementById('clearSearch');
+
+  // ---------------- HELPERS ----------------
+  function saveLocal(){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(storedData));
+    localStorage.setItem(DELETED_KEY, JSON.stringify(deletedNames));
+  }
+
+  function download(filename, text){
+    const blob = new Blob([text], {type: 'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
+
+  function loadFromFile(file){
+    const reader = new FileReader();
+    reader.onload = e => {
+      try{
+        const parsed = JSON.parse(e.target.result);
+        if(!Array.isArray(parsed)) throw new Error('JSON non nel formato previsto (array)');
+        // aggiungi evitando duplicati per nome; se importazione contiene nomi presenti in deletedNames, chiedi conferma per ripristinare
+        const imported = parsed.filter(p => {
+          if(deletedNames.includes(p.name)){
+            // chiedi all'admin se vuole ripristinare
+            const keep = confirm(`Il Pokémon "${p.name}" è stato precedentemente eliminato. Vuoi ripristinarlo durante l'import? (OK = sì, Annulla = no)`);
+            if(!keep) return false;
+            // rimuovi dal deletedNames
+            deletedNames = deletedNames.filter(n => n !== p.name);
+          }
+          return true;
+        });
+        // unisci evitando duplicati: preferisci i dati importati per il nome
+        const map = {};
+        storedData.forEach(s => map[s.name] = s);
+        imported.forEach(i => map[i.name] = i);
+        storedData = Object.values(map);
+        saveLocal();
+        refresh();
+        alert('Import completata!');
+      }catch(err){ alert('Errore import: ' + err.message) }
+    };
+    reader.readAsText(file);
+  }
+
+  // ---------------- RENDER / CARD ----------------
+  function creaCard(p){
+    const tpl = document.getElementById('cardTpl');
+    const el = tpl.content.firstElementChild.cloneNode(true);
+    const img = el.querySelector('img');
+    const h3 = el.querySelector('h3');
+    const pdesc = el.querySelector('p');
+    const row = el.querySelector('.row');
+    const favBadge = el.querySelector('.fav');
+
+    img.src = p.img || '';
+    img.alt = p.name;
+    h3.textContent = p.name;
+    pdesc.textContent = p.desc || '';
+
+    if(p.color) el.style.background = p.color;
+
+    // favorite visual (persisted outside storedData)
+    const favKey = 'fav_' + p.name;
+    const isFav = localStorage.getItem(favKey) === 'true';
+    if(isFav){ favBadge.style.display = 'block' }
+
+    // MOSSE
+    const movesBtn = document.createElement('button'); movesBtn.className='small'; movesBtn.textContent='Mosse';
+    movesBtn.addEventListener('click', ()=> alert(p.moves && p.moves.length ? p.moves.join(', ') : 'Nessuna mossa'));
+    row.appendChild(movesBtn);
+
+    // SHINY
+    const shinyBtn = document.createElement('button'); shinyBtn.className='small'; shinyBtn.textContent='Shiny';
+    let isShiny = false;
+    shinyBtn.addEventListener('click', ()=> {
+      if(p.shiny){
+        img.src = isShiny ? p.img : p.shiny;
+        isShiny = !isShiny;
+      } else alert('Nessuna immagine Shiny disponibile!');
+    });
+    row.appendChild(shinyBtn);
+
+    // AUDIO
+    const audioBtn = document.createElement('button'); audioBtn.className='small'; audioBtn.textContent='Audio';
+    audioBtn.addEventListener('click', ()=>{
+      if(p.audio){
+        const audio = new Audio(p.audio);
+        audio.play();
+      } else alert('Nessun audio disponibile!');
+    });
+    row.appendChild(audioBtn);
+
+    // FAVORITE toggle (utente)
+    const favBtn = document.createElement('button'); favBtn.className='small'; favBtn.textContent = isFav ? 'Unfav' : 'Fav';
+    favBtn.addEventListener('click', ()=>{
+      const key = favKey; const now = localStorage.getItem(key) === 'true';
+      localStorage.setItem(key, (!now).toString());
+      refresh();
+    });
+    row.appendChild(favBtn);
+
+    // ADMIN CONTROLS: Modifica e Cancella (solo se isAdmin)
+    if(isAdmin){
+      const editBtn = document.createElement('button'); editBtn.className='small'; editBtn.textContent='Modifica';
+      editBtn.addEventListener('click', ()=>{
+        // popola il pannello admin per modificare
+        document.getElementById('a_name').value = p.name;
+        document.getElementById('a_img').value = p.img || '';
+        document.getElementById('a_shiny').value = p.shiny || '';
+        document.getElementById('a_desc').value = p.desc || '';
+        document.getElementById('a_moves').value = p.moves ? p.moves.join(', ') : '';
+        document.getElementById('a_audio').value = p.audio || '';
+        document.getElementById('a_color').value = p.color || '';
+        // scroll to admin panel
+        adminPanel.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      row.appendChild(editBtn);
+
+      const delBtn = document.createElement('button'); delBtn.className='small'; delBtn.textContent='Cancella';
+      delBtn.addEventListener('click', ()=>{
+        if(!confirm('Eliminare ' + p.name + ' definitivamente?')) return;
+        // aggiungi il nome alla lista deletedNames se non c'è già
+        if(!deletedNames.includes(p.name)) deletedNames.push(p.name);
+        // rimuovi dalla storedData (se presente)
+        storedData = storedData.filter(x => x.name !== p.name);
+        saveLocal();
+        refresh();
+      });
+      row.appendChild(delBtn);
+    }
+
+    return el;
+  }
+
+  function renderList(list){
+    pokedexEl.innerHTML = '';
+    list.forEach(p => pokedexEl.appendChild(creaCard(p)));
+    countEl.textContent = list.length;
+  }
+
+  // ---------------- DATA LOADING & MERGE ----------------
+  function refresh(){
+    // Unisci dati base (allData) e storedData: storedData sovrascrive allData per nome.
+    const mergedMap = {};
+    (allData || []).forEach(p => mergedMap[p.name] = Object.assign({}, p)); // base
+    (storedData || []).forEach(p => mergedMap[p.name] = Object.assign(mergedMap[p.name] || {}, p)); // override / aggiunta
+
+    // Rimuovi quelli in deletedNames (cancellati permanentemente)
+    deletedNames.forEach(n => delete mergedMap[n]);
+
+    // Converti in array
+    let merged = Object.values(mergedMap);
+
+    // Filtri: ricerca e colore
+    const q = (searchInput.value || '').trim().toLowerCase();
+    if(q){
+      merged = merged.filter(p =>
+        (p.name && p.name.toLowerCase().includes(q)) ||
+        (p.moves && p.moves.join(' ').toLowerCase().includes(q)) ||
+        (p.desc && p.desc.toLowerCase().includes(q))
+      );
+    }
+    const color = filterColor.value;
+    if(color){
+      merged = merged.filter(p => p.color && p.color.toLowerCase().includes(color));
+    }
+
+    renderList(merged);
+  }
+
+  // Carica pokedex.json se esiste, altrimenti usa esempi
+ // fetch base pokedex.json (from GitHub)
+fetch('https://raw.githubusercontent.com/tuonome/fnaf-pokedex-data/main/pokedex.json')
+  .then(res => res.ok ? res.json() : Promise.reject('no file'))
+  .then(data => {
+    storedData = data.storedData || data.pokemon || [];
+    deletedNames = data.deletedNames || [];
+    renderPokedex();
+  })
+  .catch(() => {
+    console.log("Nessun file pokedex trovato online, caricamento locale fallback");
+    renderPokedex();
+  });
+
+  // ---------------- EVENTS ----------------
+  document.getElementById('adminToggle').addEventListener('click', ()=> adminModal.classList.add('show'));
+  document.getElementById('closeModal').addEventListener('click', ()=> adminModal.classList.remove('show'));
+
+  document.getElementById('loginBtn').addEventListener('click', ()=>{
+    const pass = document.getElementById('adminPass').value;
+    if(pass === ADMIN_PASSWORD){
+      isAdmin = true;
+      sessionStorage.setItem('isAdmin', 'true');
+      adminModal.classList.remove('show');
+      adminPanel.style.display = 'block';
+      alert('Accesso admin consentito');
+      refresh();
+    } else {
+      alert('Password errata');
+    }
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', ()=>{
+    isAdmin = false;
+    sessionStorage.removeItem('isAdmin');
+    adminPanel.style.display = 'none';
+    refresh();
+  });
+
+  // Aggiungi / Salva (usa nome come chiave; se era in deletedNames, chiede conferma per ripristinare)
+  document.getElementById('addPokemon').addEventListener('click', ()=>{
+    const name = document.getElementById('a_name').value.trim();
+    const img = document.getElementById('a_img').value.trim();
+    const shiny = document.getElementById('a_shiny').value.trim();
+    const desc = document.getElementById('a_desc').value.trim();
+    const moves = document.getElementById('a_moves').value.split(',').map(s=>s.trim()).filter(Boolean);
+    const audio = document.getElementById('a_audio').value.trim();
+    const color = document.getElementById('a_color').value.trim();
+    if(!name || !img || !desc){ alert('Compila almeno Nome, Immagine e Descrizione'); return; }
+
+    // Se il nome è nella lista deletedNames (era stato eliminato), chiedi se vuoi ripristinarlo
+    if(deletedNames.includes(name)){
+      if(!confirm(`${name} è stato precedentemente eliminato in modo permanente. Vuoi ripristinarlo (rimuovendo la cancellazione permanente)? premi OK per ripristinare.`)){
+        // non aggiungere
+        return;
+      } else {
+        // rimuovi dal deletedNames (ripristino)
+        deletedNames = deletedNames.filter(n => n !== name);
+      }
+    }
+
+    const newP = { name, img, shiny, desc, moves, audio, color };
+    const idx = storedData.findIndex(x => x.name === name);
+    if(idx >= 0){
+      storedData[idx] = newP; // sovrascrivi
+    } else {
+      storedData.push(newP);
+    }
+    saveLocal();
+    // pulisci form
+    ['a_name','a_img','a_shiny','a_desc','a_moves','a_audio','a_color'].forEach(id => document.getElementById(id).value = '');
+    refresh();
+  });
+
+  // Ricerca / filtri UI
+  searchInput.addEventListener('input', refresh);
+  clearSearchBtn.addEventListener('click', ()=>{ searchInput.value=''; refresh(); });
+  filterColor.addEventListener('change', refresh);
+  document.getElementById('resetFilters').addEventListener('click', ()=>{ searchInput.value=''; filterColor.value=''; refresh(); });
+
+  // Export / Import
+  exportBtn.addEventListener('click', ()=>{
+    // esporta storedData (non esportiamo i deletedNames qui? includiamoli come meta per sicurezza)
+    const exported = { storedData, deletedNames };
+    download('my_pokedex_export.json', JSON.stringify(exported, null, 2));
+  });
+
+  // Import (supporta il formato {storedData, deletedNames} o anche array semplice)
+  importFile.addEventListener('change', (e)=>{
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      try{
+        const parsed = JSON.parse(ev.target.result);
+        if(Array.isArray(parsed)){
+          // array di entry: comportati come prima (chiedi ripristino se in deleted)
+          const imported = parsed.filter(p => {
+            if(deletedNames.includes(p.name)){
+              const keep = confirm(`Il Pokémon "${p.name}" è stato precedentemente eliminato. Vuoi ripristinarlo durante l'import? (OK = sì, Annulla = no)`);
+              if(!keep) return false;
+              deletedNames = deletedNames.filter(n => n !== p.name);
+            }
+            return true;
+          });
+          const map = {};
+          storedData.forEach(s => map[s.name] = s);
+          imported.forEach(i => map[i.name] = i);
+          storedData = Object.values(map);
+        } else if(parsed && typeof parsed === 'object'){
+          if(Array.isArray(parsed.storedData)) {
+            const imported = parsed.storedData.filter(p => {
+              if(parsed.deletedNames && parsed.deletedNames.includes(p.name)){
+                // se il file di import segnala deletedNames, rispettiamolo: non importare
+                return false;
+              }
+              if(deletedNames.includes(p.name)){
+                const keep = confirm(`Il Pokémon "${p.name}" è stato precedentemente eliminato. Vuoi ripristinarlo durante l'import? (OK = sì, Annulla = no)`);
+                if(!keep) return false;
+                deletedNames = deletedNames.filter(n => n !== p.name);
+              }
+              return true;
+            });
+            const map = {};
+            storedData.forEach(s => map[s.name] = s);
+            imported.forEach(i => map[i.name] = i);
+            storedData = Object.values(map);
+          }
+          if(Array.isArray(parsed.deletedNames)){
+            // unisci deletedNames (evita duplicati)
+            parsed.deletedNames.forEach(n => { if(!deletedNames.includes(n)) deletedNames.push(n); });
+          }
+        } else {
+          throw new Error('Formato JSON non riconosciuto');
+        }
+        saveLocal();
+        refresh();
+        alert('Import completata!');
+      } catch(err) {
+        alert('Errore durante l\'import: ' + err.message);
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  });
+
+  // Funzioni per gestire la lista di deletedNames (admin)
+  document.getElementById('clearDeleted').addEventListener('click', ()=> {
+    if(!isAdmin){ alert('Solo admin'); return; }
+    if(!deletedNames.length){ alert('Nessun elemento eliminato permanentemente.'); return; }
+    if(confirm('Vuoi rimuovere la lista delle eliminazioni (cioè ripristinare la possibilità che quei nomi riappaiano)?')){
+      deletedNames = [];
+      saveLocal();
+      refresh();
+      alert('Lista eliminati svuotata. I nomi precedentemente eliminati potranno riapparire se presenti in pokedex.json o importati.');
+    }
+  });
+
+  document.getElementById('showDeletedList').addEventListener('click', ()=> {
+    if(!isAdmin){ alert('Solo admin'); return; }
+    if(!deletedNames.length){ alert('Nessun nome eliminato permanentemente.'); return; }
+    alert('Eliminati permanentemente:\\n' + deletedNames.join('\\n'));
+  });
+
+  // Mostra pulsante admin panel se già loggato
+  if(isAdmin) adminPanel.style.display = 'block';
+
+  // inizializza refresh dopo fetch
+  setTimeout(refresh, 250);
+  </script>
+</body>
+</html>

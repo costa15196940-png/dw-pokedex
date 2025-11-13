@@ -1,0 +1,19 @@
+{
+  "storedData": [
+    {
+      "name": "Novalite",
+      "img": "https://files.catbox.moe/ewis6f.gif",
+      "shiny": "https://files.catbox.moe/hf5rc2.png",
+      "desc": "Pokemon Sonnellino-La stella è la punta del suo cappello.Questo Pokemon ha energie limitate e le usa per svolgere semplici funzioni.Dorme spesso per ricaricarsi._psico",
+      "moves": [
+        "Abilità speciale: Sonnolenza -questo pokemon se addormentato addormenta anche il Pokemon avversario"
+      ],
+      "audio": "https://files.catbox.moe/gwl22t.mp3",
+      "color": "linear-gradient(135deg, #FF7BA3, #C03C73)"
+    }
+  ],
+  "deletedNames": [
+    "Bulbasaur",
+    "Pikachu"
+  ]
+}
