@@ -1,4 +1,5 @@
 {
+{
   "storedData": [
     {
       "name": "Novalite",
@@ -9,6 +10,17 @@
         "Abilità speciale: Sonnolenza -questo pokemon se addormentato addormenta anche il Pokemon avversario"
       ],
       "audio": "https://files.catbox.moe/gwl22t.mp3",
+      "color": "linear-gradient(135deg, #FF7BA3, #C03C73)"
+    },
+    {
+      "name": "Astro",
+      "img": "https://files.catbox.moe/octqfs.gif",
+      "shiny": "https://files.catbox.moe/9f0eqz.png",
+      "desc": "Pokemon sogno-Non apre mai la coperta:si dice abbia 4 braccia e contenga enormi poteri.Più la luna è lumiosa più sta bene",
+      "moves": [
+        "Abilità speciale: Sonnolenza -questo pokemon se addormentato addormenta anche il Pokemon avversario"
+      ],
+      "audio": "https://files.catbox.moe/qtj5i1.mp4",
       "color": "linear-gradient(135deg, #FF7BA3, #C03C73)"
     }
   ],
