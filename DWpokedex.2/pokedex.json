@@ -1,5 +1,4 @@
 {
-{
   "storedData": [
     {
       "name": "Novalite",
@@ -22,6 +21,17 @@
       ],
       "audio": "https://files.catbox.moe/qtj5i1.mp4",
       "color": "linear-gradient(135deg, #FF7BA3, #C03C73)"
+    },
+    {
+      "name": "Dreamastro",
+      "img": "https://files.catbox.moe/h3xpb0.gif",
+      "shiny": "https://files.catbox.moe/2596it.png",
+      "desc": "Pokemon sogno-Non apre mai la coperta solo in battaglia.poi a tiene sempre con due zampe anche se potrebbe farlo con i poteri, non si sa il perché forse per risparmiare energia-psico, spettor",
+      "moves": [
+        "Abilità speciale: Sonnolenza -questo pokemon se addormentato addormenta anche il Pokemon avversario. Mossa speciale: Sogno-aumenta al massimo l utilizzo delle mosse"
+      ],
+      "audio": "https://files.catbox.moe/1n4jm1.mp4",
+      "color": "#F95587\tlinear-gradient(135deg, #FF7BA3, #A890F0)"
     }
   ],
   "deletedNames": [
