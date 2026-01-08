@@ -1,0 +1,52 @@
+{
+  "storedData": [
+    {
+      "name": "Novalite",
+      "img": "https://files.catbox.moe/ewis6f.gif",
+      "shiny": "https://files.catbox.moe/hf5rc2.png",
+      "desc": "Pokemon Sonnellino-La stella è la punta del suo cappello.Questo Pokemon ha energie limitate e le usa per svolgere semplici funzioni.Dorme spesso per ricaricarsi.-psico",
+      "moves": [
+        "Abilità speciale: Sonnolenza -questo pokemon se addormentato addormenta anche il Pokemon avversario"
+      ],
+      "audio": "https://files.catbox.moe/gwl22t.mp3",
+      "color": "linear-gradient(135deg, #FF7BA3, #C03C73)"
+    },
+    {
+      "name": "Astro",
+      "img": "https://files.catbox.moe/octqfs.gif",
+      "shiny": "https://files.catbox.moe/9f0eqz.png",
+      "desc": "Pokemon sogno-Non apre mai la coperta:si dice abbia 4 braccia e contenga enormi poteri.Più la luna è lumiosa più sta bene.-psico",
+      "moves": [
+        "Abilità speciale: Sonnolenza -questo pokemon se addormentato addormenta anche il Pokemon avversario"
+      ],
+      "audio": "https://files.catbox.moe/qtj5i1.mp4",
+      "color": "linear-gradient(135deg, #FF7BA3, #C03C73)"
+    },
+    {
+      "name": "Dreamastro",
+      "img": "https://files.catbox.moe/h3xpb0.gif",
+      "shiny": "https://files.catbox.moe/2596it.png",
+      "desc": "Pokemon sogno-Non apre mai la coperta solo in battaglia.poi a tiene sempre con due zampe anche se potrebbe farlo con i poteri, non si sa il perché forse per risparmiare energia-psico, spettor",
+      "moves": [
+        "Abilità speciale: Sonnolenza -questo pokemon se addormentato addormenta anche il Pokemon avversario. Mossa speciale: Sogno-aumenta al massimo l utilizzo delle mosse"
+      ],
+      "audio": "https://files.catbox.moe/1n4jm1.mp4",
+      "color": "#F95587\tlinear-gradient(135deg, #FF7BA3, #A890F0)"
+    },
+    {
+      "name": "Pebby",
+      "img": "https://files.catbox.moe/iqb5ix.gif",
+      "shiny": "https://files.catbox.moe/7r5qyh.jpeg",
+      "desc": "Pokemon ciottolo-Gli hanno dato l osso alla nascita. Non se ne separa mai. -roccia",
+      "moves": [
+        "Abilità speciale: Bersaglio-questo pokemon se in una lotta in doppio viene attaccato maggiormente anche se si alza la difesa"
+      ],
+      "audio": "https://files.catbox.moe/srurp4.mp4",
+      "color": "#B6A136\tlinear-gradient(135deg, #D5C066, #9E8A2E)"
+    }
+  ],
+  "deletedNames": [
+    "Bulbasaur",
+    "Pikachu"
+  ]
+}
