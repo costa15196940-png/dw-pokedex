@@ -26,7 +26,7 @@
       "name": "Dreamastro",
       "img": "https://files.catbox.moe/h3xpb0.gif",
       "shiny": "https://files.catbox.moe/2596it.png",
-      "desc": "Pokemon sogno-Non apre mai la coperta solo in battaglia.poi a tiene sempre con due zampe anche se potrebbe farlo con i poteri, non si sa il perché forse per risparmiare energia-psico, spettor",
+      "desc": "Pokemon sogno-Non apre mai la coperta solo in battaglia.poi a tiene sempre con due zampe anche se potrebbe farlo con i poteri, non si sa il perché forse per risparmiare energia-psico, spettro",
       "moves": [
         "Abilità speciale: Sonnolenza -questo pokemon se addormentato addormenta anche il Pokemon avversario. Mossa speciale: Sogno-aumenta al massimo l utilizzo delle mosse"
       ],
@@ -54,6 +54,17 @@
       ],
       "audio": "https://files.catbox.moe/prrl4d.mp4",
       "color": "#B6A136\tlinear-gradient(135deg, #D5C066, #9E8A2E)"
+    },
+    {
+      "name": "Stractpebble",
+      "img": "https://files.catbox.moe/sk9g03.gif",
+      "shiny": "https://files.catbox.moe/k9tn46.png",
+      "desc": "Pokemon canroccia-Le parti nere sono calde e flessibili.L'osso contiene i poteri probabilmente causati dai ricordi contenuti in esso.Per questo si consiglia di crescerlo con cura e amore.-roccia,buio",
+      "moves": [
+        "Abilità speciale: Bersaglio-questo pokemon se in una lotta in doppio viene attaccato maggiormente anche se si alza la difesa. Mossa speciale: Grandedistrazione-rende una mossa forte il doppio"
+      ],
+      "audio": "https://files.catbox.moe/7xsr7z.mp4",
+      "color": "#B6A136\tlinear-gradient(135deg, #D5C066, #3F2D20)"
     }
   ],
   "deletedNames": [
