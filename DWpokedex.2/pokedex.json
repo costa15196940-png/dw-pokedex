@@ -4,7 +4,7 @@
       "name": "Novalite",
       "img": "https://files.catbox.moe/ewis6f.gif",
       "shiny": "https://files.catbox.moe/hf5rc2.png",
-      "desc": "Pokemon Sonnellino-La stella è la punta del suo cappello.Questo Pokemon ha energie limitate e le usa per svolgere semplici funzioni.Dorme spesso per ricaricarsi._psico",
+      "desc": "Pokemon Sonnellino-La stella è la punta del suo cappello.Questo Pokemon ha energie limitate e le usa per svolgere semplici funzioni.Dorme spesso per ricaricarsi.-psico",
       "moves": [
         "Abilità speciale: Sonnolenza -questo pokemon se addormentato addormenta anche il Pokemon avversario"
       ],
@@ -15,7 +15,7 @@
       "name": "Astro",
       "img": "https://files.catbox.moe/octqfs.gif",
       "shiny": "https://files.catbox.moe/9f0eqz.png",
-      "desc": "Pokemon sogno-Non apre mai la coperta:si dice abbia 4 braccia e contenga enormi poteri.Più la luna è lumiosa più sta bene",
+      "desc": "Pokemon sogno-Non apre mai la coperta:si dice abbia 4 braccia e contenga enormi poteri.Più la luna è lumiosa più sta bene.-psico",
       "moves": [
         "Abilità speciale: Sonnolenza -questo pokemon se addormentato addormenta anche il Pokemon avversario"
       ],
@@ -42,21 +42,19 @@
         "Abilità speciale: Bersaglio-questo pokemon se in una lotta in doppio viene attaccato maggiormente anche se si alza la difesa"
       ],
       "audio": "https://files.catbox.moe/srurp4.mp4",
-      "color": "linear-gradient(135deg, #D5C066, #9E8A2E)"
+      "color": "#B6A136\tlinear-gradient(135deg, #D5C066, #9E8A2E)"
     },
     {
-      "name": "Pebby",
-      "img": "https://files.catbox.moe/iqb5ix.gif",
-      "shiny": "https://files.catbox.moe/7r5qyh.jpeg",
-      "desc": "Pokemon ciottolo-Gli hanno dato l osso alla nascita. Non se ne separa mai. -roccia",
+      "name": "Pebble",
+      "img": "https://files.catbox.moe/rzo4qp.gif",
+      "shiny": "https://files.catbox.moe/osveu1.png",
+      "desc": "Pokemon canroccia-nonostante sia una roccia unica può muovere un po' la testa. Si dice che l osso contenga i suoi ricordi. è un gran coccolone!-roccia",
       "moves": [
         "Abilità speciale: Bersaglio-questo pokemon se in una lotta in doppio viene attaccato maggiormente anche se si alza la difesa"
       ],
-      "audio": "https://files.catbox.moe/srurp4.mp4",
+      "audio": "https://files.catbox.moe/prrl4d.mp4",
       "color": "#B6A136\tlinear-gradient(135deg, #D5C066, #9E8A2E)"
     }
-  ],
-
   ],
   "deletedNames": [
     "Bulbasaur",
