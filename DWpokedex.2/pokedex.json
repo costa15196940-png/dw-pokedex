@@ -43,7 +43,20 @@
       ],
       "audio": "https://files.catbox.moe/srurp4.mp4",
       "color": "linear-gradient(135deg, #D5C066, #9E8A2E)"
+    },
+    {
+      "name": "Pebby",
+      "img": "https://files.catbox.moe/iqb5ix.gif",
+      "shiny": "https://files.catbox.moe/7r5qyh.jpeg",
+      "desc": "Pokemon ciottolo-Gli hanno dato l osso alla nascita. Non se ne separa mai. -roccia",
+      "moves": [
+        "Abilità speciale: Bersaglio-questo pokemon se in una lotta in doppio viene attaccato maggiormente anche se si alza la difesa"
+      ],
+      "audio": "https://files.catbox.moe/srurp4.mp4",
+      "color": "#B6A136\tlinear-gradient(135deg, #D5C066, #9E8A2E)"
     }
+  ],
+
   ],
   "deletedNames": [
     "Bulbasaur",
