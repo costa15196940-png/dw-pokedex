@@ -65,6 +65,42 @@
       ],
       "audio": "https://files.catbox.moe/7xsr7z.mp4",
       "color": "#B6A136\tlinear-gradient(135deg, #D5C066, #3F2D20)"
+    },
+    {
+      "name": "Movye",
+      "img": "https://files.catbox.moe/6m7lb4.gif",
+      "shiny": "https://files.catbox.moe/yckmgq.png",
+      "desc": "Pokemon meccanico-Un telecomando munito di microfono ha preso vita. Dal papillon può emettere versi, anche quelli fastidiosi per distrarre i nemici.-Metallo",
+      "moves": [
+        "Abilità speciale: Parafulmine- Il pokémon attira e neutralizza le mosse di tipo Elettro",
+        "facendo aumentare il suo Attacco Speciale"
+      ],
+      "audio": "",
+      "color": "#B7B7CE\tlinear-gradient(135deg, #D8D8E8, #8C8C9E)"
+    },
+    {
+      "name": "Vee",
+      "img": "https://files.catbox.moe/gadbjw.gif",
+      "shiny": "https://files.catbox.moe/4qpclw.png",
+      "desc": "Pokemon robot-Con la spina movye ha preso possesso di un robot,il telecomando i cui prima abitava ora è una coda munito di microfono.-acciaio",
+      "moves": [
+        "Abilità speciale: Parafulmine- Il pokémon attira e neutralizza le mosse di tipo Elettro",
+        "facendo aumentare il suo Attacco Speciale"
+      ],
+      "audio": "",
+      "color": "#B7B7CE\tlinear-gradient(135deg, #D8D8E8, #8C8C9E)"
+    },
+    {
+      "name": "Hijackvee",
+      "img": "https://files.catbox.moe/q8uk30.gif",
+      "shiny": "https://files.catbox.moe/o63dvu.png",
+      "desc": "Pokemon robot-é stato migliorato dagli scienziati aggiungendo nell addome un campo magnetico in grado di assorbire l elettricità statica e trasformarla in mosse di tipo elettrico",
+      "moves": [
+        "Abilità speciale: Parafulmine- Il pokémon attira e neutralizza le mosse di tipo Elettro",
+        "facendo aumentare il suo Attacco Speciale. Mossa speciale: neutralizzabilità-neutralizza le abbilità di un avversario abbassandogli pure attacco e difesa"
+      ],
+      "audio": "",
+      "color": "#B7B7CE\tlinear-gradient(135deg, #D8D8E8, #F7D02C)"
     }
   ],
   "deletedNames": [
